@@ -1,6 +1,6 @@
 import express from 'express';
 import ping from './ping';
-import users from './user';
+import users from './users';
 import posts from './posts';
 import profile from './profile';
 import auth from './auth';

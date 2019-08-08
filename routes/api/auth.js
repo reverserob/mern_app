@@ -1,6 +1,6 @@
 import express from 'express';
 import auth from '../../middleware/auth';
-import User from '../../models/users'
+import User from '../../models/Users'
 import { check, validationResult} from "express-validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";

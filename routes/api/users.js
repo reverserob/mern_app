@@ -2,6 +2,8 @@ import express from 'express';
 import {check, validationResult} from "express-validator";
 import gravatar from 'gravatar'
 import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import config from 'config';
 import User from '../../models/users'
 
 const router = express.Router();
@@ -54,9 +56,23 @@ router.post('/',
            console.log('salt password:', user.password);
 
            await user.save();
+
            // return JWT token
-           console.log(req.body);
-           res.send('User correctly registered')
+           const payload = {
+               user: {
+                   id: user.id
+               }
+           };
+
+           jwt.sign(
+               payload,
+               config.get('jwtToken'),
+               { expiresIn: 360000 },
+               (err, token)=>{
+                   if(err) throw err;
+                   res.json({token});
+               }
+           );
        }catch (err) {
            console.log(err.message);
            res.status(500).send('Server error on registration user')

@@ -67,8 +67,9 @@ router.post(
             linkedin
         } = req.body;
 
-        // Build profile object
         const profileFields = {};
+
+        // Build profile object
         profileFields.user = req.user.id;
         if (company) profileFields.company = company;
         if (website) profileFields.website = website;

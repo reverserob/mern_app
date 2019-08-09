@@ -70,7 +70,6 @@ router.put(
         }
 
         try {
-            // const user = await User.findById(req.user.id).select('-password');
             const post = await Post.findById(req.params.id);
 
             // Check user
@@ -78,13 +77,14 @@ router.put(
                 return res.status(401).json({ msg: 'User not authorized' });
             }
 
-            const postToUpdate = await  Post.updateOne(
+            await  Post.updateOne(
                 { _id: req.params.id },
-                { $set : req.body},
-                { upsert: true, new: true }
+                { $set : req.body },
+                { new: true }
             );
+            const postUpdated = await Post.findOne({ _id: req.params.id });
 
-            return res.json(postToUpdate);
+            return res.json(postUpdated);
 
         } catch (err) {
             console.error(err.message);

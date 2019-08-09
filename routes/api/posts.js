@@ -50,7 +50,7 @@ router.post(
 );
 
 // @route    PUT api/posts/:id_post
-// @desc     Create a post
+// @desc     Edit a post
 // @access   Private
 router.put(
     '/:id',
@@ -71,14 +71,20 @@ router.put(
 
         try {
             // const user = await User.findById(req.user.id).select('-password');
+            const post = await Post.findById(req.params.id);
 
-            const post = await  Post.updateOne(
+            // Check user
+            if (post.user.toString() !== req.user.id) {
+                return res.status(401).json({ msg: 'User not authorized' });
+            }
+
+            const postToUpdate = await  Post.updateOne(
                 { _id: req.params.id },
                 { $set : req.body},
                 { upsert: true, new: true }
             );
 
-           return res.json(post);
+            return res.json(postToUpdate);
 
         } catch (err) {
             console.error(err.message);

@@ -1,5 +1,7 @@
 {
   "mongoURI": "mongodb+srv://robran:NzYolo14@cluster0-tsift.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtToken": "mysecrettoken"
+  "jwtToken": "mysecrettoken",
+  "githubClientId": "Iv1.1474d87f6b1e90c3",
+  "githubClientSecret": "e25753e92e11f679c7a11d1d7e6d56a66e6116a9"
 
 }

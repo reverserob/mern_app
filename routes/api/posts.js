@@ -298,4 +298,4 @@ module.exports = router;
 router.get('/', (req, res) => res.send('Posts route'));
 
 
-module.exports = router;
+export default router;

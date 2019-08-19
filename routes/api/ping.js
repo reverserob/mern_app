@@ -6,4 +6,4 @@ const router = express.Router();
 // @access  Public
 router.get('/', (req, res) => res.send('PING route'));
 
-module.exports = router;
+export default router;

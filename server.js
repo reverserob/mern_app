@@ -1,12 +1,6 @@
-const express = require ('express');
-const connectDB = require ('./config/db');
+import express from 'express';
 import api from './routes/api/api.router';
-// import api from './routes/api/api.router';
-// const usersRoute = require('./routes/api/user');
-// const postsRoute = require('./routes/api/posts');
-// const profileRoute = require('./routes/api/profile');
-// const authRoute = require('./routes/api/auth');
-// const open = require('open');
+import connectDB from './config/db';
 
 const app = express();
 

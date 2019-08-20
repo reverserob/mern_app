@@ -1,19 +1,25 @@
 import React from 'react';
-import classNameTDZError from "@babel/runtime/helpers/esm/classNameTDZError";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Landing = () => {
     return (
-        <nav className="navbar bg-dark">
-        <h1>
-        <a href="index.html"><i className="fas fa-code"></i> DevConnector</a>
-    </h1>
-    <ul>
-    <li><a href="profiles.html">Developers</a></li>
-    <li><a href="register.html">Register</a></li>
-    <li><a href="login.html">Login</a></li>
-    </ul>
-    </nav>
+        <section className="landing">
+            <div className="dark-overlay">
+                <div className="landing-inner">
+                    <h1 className="x-large">Developer Connector</h1>
+                    <p className="lead">
+                        Create a developer profile/portfolio, share posts and get help from
+                        other developers
+                    </p>
+                    <div className="buttons">
+                        <Link to='/register' className="btn btn-primary">Sign Up</Link>
+                        <Link to='/login' className="btn btn-light">Login</Link>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     )
 };
 
-export default Navbar;
+export default Landing;

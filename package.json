@@ -23,6 +23,7 @@
     "@babel/runtime": "^7.5.5",
     "bcryptjs": "^2.4.3",
     "config": "^3.2.2",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-validator": "^6.1.1",
     "gravatar": "^1.8.0",

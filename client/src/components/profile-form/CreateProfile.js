@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 
-const Createprofile = ({
-                           createProfile,
-                           getCurrentProfile,
-                           profile: { profile, loading },
-                           history,
-                       }) => {
+const Createprofile = (
+    {
+       createProfile,
+       getCurrentProfile,
+       profile: { profile, loading },
+       history,
+    }
+) => {
     const [formData, setFormData] = useState({
         company: "",
         website: "",

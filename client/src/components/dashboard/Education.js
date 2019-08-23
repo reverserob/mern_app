@@ -1,68 +1,58 @@
-import React, { Fragment, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
+import moment from 'moment';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
-import DashboardActions from './DashboardActions';
-import Experience from './Experience';
-import Education from './Education';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import { deleteEducation } from '../../actions/profile';
 
-const Dashboard = ({
-                       getCurrentProfile,
-                       deleteAccount,
-                       auth: { user },
-                       profile: { profile, loading }
-                   }) => {
-    useEffect(() => {
-        getCurrentProfile();
-    }, [getCurrentProfile]);
+const Education = ({ education, deleteEducation }) => {
+  const educations = education.map(edu => (
+    <tr key={edu._id}>
+      <td>{edu.school}</td>
+      <td className="hide-sm">{edu.degree}</td>
+      <td>
+        <Moment format="YYYY/MM/DD">{moment.utc(edu.from)}</Moment> -{' '}
+        {edu.to === null ? (
+          ' Now'
+        ) : (
+          <Moment format="YYYY/MM/DD">{moment.utc(edu.to)}</Moment>
+        )}
+      </td>
+      <td>
+        <button
+          onClick={() => deleteEducation(edu._id)}
+          className="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ));
 
-    return loading && profile === null ? (
-        <Spinner />
-    ) : (
-        <Fragment>
-            <h1 className='large text-primary'>Dashboard</h1>
-            <p className='lead'>
-                <i className='fas fa-user' /> Welcome {user && user.name}
-            </p>
-            {profile !== null ? (
-                <Fragment>
-                    <DashboardActions />
-                    <Experience experience={profile.experience} />
-                    <Education education={profile.education} />
-
-                    <div className='my-2'>
-                        <button className='btn btn-danger' onClick={() => deleteAccount()}>
-                            <i className='fas fa-user-minus' /> Delete My Account
-                        </button>
-                    </div>
-                </Fragment>
-            ) : (
-                <Fragment>
-                    <p>You have not yet setup a profile, please add some info</p>
-                    <Link to='/create-profile' className='btn btn-primary my-1'>
-                        Create Profile
-                    </Link>
-                </Fragment>
-            )}
-        </Fragment>
-    );
+  return (
+    <Fragment>
+      <h2 className="my-2">Education Credentials</h2>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>School</th>
+            <th className="hide-sm">Degree</th>
+            <th className="hide-sm">Years</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>{educations}</tbody>
+      </table>
+    </Fragment>
+  );
 };
 
-Dashboard.propTypes = {
-    getCurrentProfile: PropTypes.func.isRequired,
-    deleteAccount: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    profile: PropTypes.object.isRequired
+Education.propTypes = {
+  education: PropTypes.array.isRequired,
+  deleteEducation: PropTypes.func.isRequired
 };
-
-const mapStateToProps = state => ({
-    auth: state.auth,
-    profile: state.profile
-});
 
 export default connect(
-    mapStateToProps,
-    { getCurrentProfile, deleteAccount }
-)(Dashboard);
+  null,
+  { deleteEducation }
+)(Education);
